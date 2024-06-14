@@ -1,4 +1,4 @@
-GET http://localhost:4000/login HTTP/1.1
+GET http://localhost:4000/ HTTP/1.1
 
 content-type: application/json
 
@@ -8,6 +8,6 @@ POST http://localhost:4000/login HTTP/1.1
 content-type: application/json
 
 {
-    "name":"sebastian",
-    "password": 12345
+    "name":"seba",
+    "date":"02-03-2024"
 }
