@@ -1,6 +1,7 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-import appRoutes from "./routes/index.routes.js";
+import {db}  from "./database/index.database.js";
+// import appRoutes from "./routes/index.routes.js";
 
 const app = express();
 
@@ -13,8 +14,6 @@ app.use(json());
 app.use(urlencoded());
 
 //IMPORTAR RUTAS
-
-
 
 //EXPOSICION DEL PUERTO
 app.listen(port, () => {
