@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-// import appRoutes from "./routes/index.routes.js";
+import AltaHerramientasRouter from "./routes/alta-herramientas.routes.js";
 
 const app = express();
 
@@ -13,8 +13,7 @@ app.use(json());
 app.use(urlencoded());
 
 //IMPORTAR RUTAS
-
-
+app.use(AltaHerramientasRouter);
 
 //EXPOSICION DEL PUERTO
 app.listen(port, () => {
