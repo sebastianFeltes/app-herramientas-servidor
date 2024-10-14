@@ -21,49 +21,65 @@ export async function cargarHerramienta(req, res) {
     vidaUtil,
   } = req.body;
 
-  console.log(req.body);
-  db.run(
-    insertarHerramientaQuery,
-    [nombre, marca, numSerie, parseInt(categoria), parseInt(estadoHerramienta)],
-    (err, row) => {
-      if (err) {
-        console.log(err);
-        res.json({ error: err.message });
-      }
-      return;
-    }
-  );
-
-  db.all("SELECT MAX(id_herramienta) as id FROM herramienta;", (err, row) => {
-    if (err) {
-      console.log(err);
-      res.json({ error: err.message });
-    }
-    console.log(row[0].id);
-
+  // console.log(req.body);
+  try {
     db.run(
-      insertarDetalleHerramientaQuery,
+      insertarHerramientaQuery,
       [
-        row[0].id,
-        fechaCarga,
-        fechaCompra,
-        origenHerramienta,
-        estadoHerramienta /* es un núm */,
-        consumible,
-        vidaUtil /* es un núm */,
+        nombre,
+        marca,
+        numSerie,
+        parseInt(categoria),
+        parseInt(estadoHerramienta),
       ],
       (err, row) => {
         if (err) {
           console.log(err);
-          res.json({ error: err.message });
+          return res
+            .status(500)
+            .json({ message: "error al cargar herramienta" });
         }
-        return res.json(row);
+
+        db.all(
+          "SELECT MAX(id_herramienta) as id FROM herramienta;",
+          (err, id) => {
+            if (err) {
+              console.log(err);
+              return res
+                .status(500)
+                .json({ message: "error al cargar herramienta" });
+            }
+            // console.log(id[0].id);
+
+            db.run(
+              insertarDetalleHerramientaQuery,
+              [
+                id[0].id,
+                fechaCarga,
+                fechaCompra,
+                origenHerramienta,
+                estadoHerramienta /* es un núm */,
+                consumible,
+                vidaUtil /* es un núm */,
+              ],
+              (err, row) => {
+                if (err) {
+                  console.log(err);
+                  return res
+                    .status(500)
+                    .json({ message: "error al cargar herramienta" });
+                }
+                res.status(200).json({ message: "herramienta cargada" });
+              }
+            );
+          }
+        );
       }
     );
-    return row;
-  });
-
-  res.json({ message: "herramienta cargada" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error al cargar herramienta" });
+  }
 }
 
 //FUNCIÓN QUE HACE EL selectCategorias A LA DB Y SOLO RESPONDE,
@@ -75,9 +91,7 @@ export async function obtenerCategoria(req, res) {
       console.log(err.message);
       return res.json({ error: "error al obtener las categorías" });
     }
-
-    console.log(rows);
-
+    // console.log(rows);
     return res.json(rows);
   });
 }
@@ -91,8 +105,7 @@ export async function obtenerEstado(req, res) {
       console.log(err.message);
       return res.json({ error: "error al obtener los estados" });
     }
-    console.log(rows);
-
+    // console.log(rows);
     return res.json(rows);
   });
 }
