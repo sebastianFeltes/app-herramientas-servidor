@@ -1,5 +1,8 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
+import {db}  from "./database/index.database.js";
+// import appRoutes from "./routes/index.routes.js";
+import LectorQrRouter from "./routes/lector-qr.routes.js";
 import AltaHerramientasRouter from "./routes/alta-herramientas.routes.js";
 
 const app = express();
@@ -13,9 +16,12 @@ app.use(json());
 app.use(urlencoded());
 
 //IMPORTAR RUTAS
+app.use(LectorQrRouter);
 app.use(AltaHerramientasRouter);
 
 //EXPOSICION DEL PUERTO
 app.listen(port, () => {
   console.log("Servidor escuchando en el puerto 4000");
+
 });
+

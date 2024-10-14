@@ -11,3 +11,25 @@ content-type: application/json
     "name":"seba",
     "date":"02-03-2024"
 }
+
+###
+
+POST http://localhost:4000/devolver-herramientas HTTP/1.1
+content-type: application/json
+
+{
+   
+    "id_herramienta": 1, 
+    "id_alumno": 1
+}
+
+### 
+
+POST http://localhost:4000/asignar-herramientas HTTP/1.1
+content-type: application/json
+
+{
+   
+    "id_herramienta": 1, 
+    "id_alumno": 1
+}
