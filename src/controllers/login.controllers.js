@@ -18,7 +18,8 @@ export async function intentarLogin(req, res) {
         return res.status(200).json({
           nombre: usuario.nombre,
           dni: usuario.dni,
-          apellido: usuario.apellido
+          apellido: usuario.apellido,
+          id_docente: usuario.id_docente
         });
       } else {
         return res.json({ message: "Contraseña invalida" });
