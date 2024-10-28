@@ -21,3 +21,10 @@ export const selectCategorias = `SELECT * FROM categoria;`;
 
 //OBTENGO LOS ESTADOS DE LA DB
 export const selectEstados = `SELECT * FROM estado;`;
+
+export const insertarRelHerrUsuario = `
+  INSERT INTO rel_herramienta_usuario 
+  (id_herramienta, id_docente, id_alumno, fecha, hora, id_movimiento) 
+  VALUES (?,?,?,?,?,?)
+  ;
+`;

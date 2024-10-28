@@ -1,6 +1,7 @@
 import {
   insertarDetalleHerramientaQuery,
   insertarHerramientaQuery,
+  insertarRelHerrUsuario,
   selectCategorias,
   selectEstados,
 } from "../database/alta-herramientas.database.js";
@@ -18,12 +19,17 @@ export async function cargarHerramienta(req, res) {
     origenHerramienta,
     estadoHerramienta,
     fechaCarga,
+    horaCarga,
     vidaUtil,
+    idDocente,
   } = req.body;
 
   // console.log(req.body);
+
+  // TRATA DE HACER ESTO
   try {
     db.run(
+      // inserta la herr
       insertarHerramientaQuery,
       [
         nombre,
@@ -33,6 +39,7 @@ export async function cargarHerramienta(req, res) {
         parseInt(estadoHerramienta),
       ],
       (err, row) => {
+        // si hay algún error al insertar la herr lo muestra
         if (err) {
           console.log(err);
           return res
@@ -40,9 +47,11 @@ export async function cargarHerramienta(req, res) {
             .json({ message: "error al cargar herramienta" });
         }
 
+        // selecciona la ultima herr cargada e inserta el detalle de la herr
         db.all(
           "SELECT MAX(id_herramienta) as id FROM herramienta;",
           (err, id) => {
+            // si hay algún error lo muestra
             if (err) {
               console.log(err);
               return res
@@ -51,6 +60,7 @@ export async function cargarHerramienta(req, res) {
             }
             // console.log(id[0].id);
 
+            // si no hay errores inserta el detalle de la herr
             db.run(
               insertarDetalleHerramientaQuery,
               [
@@ -69,6 +79,18 @@ export async function cargarHerramienta(req, res) {
                     .status(500)
                     .json({ message: "error al cargar herramienta" });
                 }
+                // cargo en la tabla rel_herramienta_alumno para saber quién y cuándo carga la herramienta
+                db.run(
+                  insertarRelHerrUsuario,
+                  [id[0].id, idDocente, null, fechaCarga, horaCarga, 4],
+                  (err, row) => {
+                    console.log(err);
+                    return res
+                      .status(500)
+                      .json({ message: "error al cargar la herramienta" });
+                  }
+                );
+
                 res.status(200).json({ message: "herramienta cargada" });
               }
             );
@@ -76,6 +98,7 @@ export async function cargarHerramienta(req, res) {
         );
       }
     );
+    // SI HAY ALGÚN ERROR EN EL TRY LO MUESTRA
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error al cargar herramienta" });
