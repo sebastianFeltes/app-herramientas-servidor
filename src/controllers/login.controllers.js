@@ -3,8 +3,7 @@ import { SelectDocente } from "../database/login.database.js";
 import bcrypt from "bcryptjs";
 
 export async function intentarLogin(req, res) {
-  const { dni , password} = req.body;
-
+  const { dni, password } = req.body;
 
   db.all(SelectDocente, [dni], (err, row) => {
     if (err) {
@@ -19,7 +18,7 @@ export async function intentarLogin(req, res) {
         return res.status(200).json({
           nombre: usuario.nombre,
           dni: usuario.dni,
-          apellido: usuario.apellido,
+          apellido: usuario.apellido
         });
       } else {
         return res.json({ message: "Contraseña invalida" });
