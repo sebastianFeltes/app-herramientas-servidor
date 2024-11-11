@@ -1,6 +1,7 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
 import {db}  from "./database/index.database.js";
+import Herramientarouter from "./routes/editar-herramienta.routes.js";
 // import appRoutes from "./routes/index.routes.js";
 
 const app = express();
@@ -14,7 +15,7 @@ app.use(json());
 app.use(urlencoded());
 
 //IMPORTAR RUTAS
-
+app.use(Herramientarouter)
 //EXPOSICION DEL PUERTO
 app.listen(port, () => {
   console.log("Servidor escuchando en el puerto 4000");
