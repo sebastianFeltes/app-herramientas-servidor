@@ -18,6 +18,7 @@ export async function cargarHerramienta(req, res) {
     fechaCompra,
     origenHerramienta,
     estadoHerramienta,
+    cantidad,
     fechaCarga,
     horaCarga,
     vidaUtil,
@@ -37,6 +38,7 @@ export async function cargarHerramienta(req, res) {
         numSerie,
         parseInt(categoria),
         parseInt(estadoHerramienta),
+        parseInt(cantidad),
       ],
       (err, row) => {
         // si hay algún error al insertar la herr lo muestra

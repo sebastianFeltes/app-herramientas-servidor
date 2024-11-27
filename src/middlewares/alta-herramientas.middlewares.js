@@ -7,6 +7,8 @@ const herramientaSchema = z.object({
   nombre: z.string().min(1, "Nombre es requerido"),
   marca: z.string().min(1, "Marca es requerida"),
   categoria: z.number().min(1, "Categoría es requerida"),
+  cantidad: z.number().min(1, "Cantidad es requerida"),
+  consumible: z.boolean(),
   numSerie: z.string().min(1, "Número de serie es requerido"),
   fechaCompra: z.string().min(1, "Fecha de compra es requerida"),
   origenHerramienta: z.string().optional(),
