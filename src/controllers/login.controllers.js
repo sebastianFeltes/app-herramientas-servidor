@@ -19,7 +19,7 @@ export async function intentarLogin(req, res) {
           nombre: usuario.nombre,
           dni: usuario.dni,
           apellido: usuario.apellido,
-          id_docente: usuario.id_docente
+          id_docente: usuario.id_docente,
         });
       } else {
         return res.json({ message: "Contraseña invalida" });
@@ -27,3 +27,17 @@ export async function intentarLogin(req, res) {
     }
   });
 }
+
+//DOM: DOCUMENT OBJECT MODEL <- esta definicion consigue trabajo
+
+/* 
+  HTML -> 
+
+  let parr1 = document.getElementById("parrafo")
+
+
+
+*/
+
+//Virtual DOM:
+// "/inventario?page=1&items=10"

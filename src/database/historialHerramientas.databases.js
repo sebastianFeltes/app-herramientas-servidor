@@ -6,5 +6,5 @@ FROM  rel_herramienta_alumno RHA
 INNER JOIN alumno AL ON AL.id_alumno = RHA.id_alumno
 INNER JOIN herramienta HER ON HER.id_herramienta = RHA.id_herramienta
 INNER JOIN movimiento MOV ON MOV.id_movimiento = RHA.id_movimiento
-INNER JOIN estado EST ON EST.id_estado = HER.id_estado
+INNER JOIN estado EST ON EST.id_estado = HER.id_estado 
 ;`;
