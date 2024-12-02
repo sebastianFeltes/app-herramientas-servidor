@@ -6,6 +6,7 @@ import LoginRouter from "./routes/login.routes.js";
 // import appRoutes from "./routes/index.routes.js";
 import LectorQrRouter from "./routes/lector-qr.routes.js";
 import AltaHerramientasRouter from "./routes/alta-herramientas.routes.js";
+import inventarioRouter from "./routes/inventarioherramientas.routes.js";
 const app = express();
 
 //PUERTO AL QUE ESCUCHA EL SERVIDOR
@@ -21,6 +22,7 @@ app.use(historialHerramientasRouter);
 app.use(LectorQrRouter);
 app.use(AltaHerramientasRouter);
 app.use(LoginRouter);
+app.use(inventarioRouter)
 
 //EXPOSICION DEL PUERTO
 app.listen(port, () => {
