@@ -20,7 +20,6 @@ export async function seleccionarHerramientaUsoController(req, res) {
         .status(500)
         .json({ error: "error al obtener las herramienta" });
     } else {
-
       if (herramientas.length <= 0) {
         db.all(SelectAlumno, [id_alumno], (err, alumno) => {
           if (err) {
@@ -48,7 +47,7 @@ export async function cargarHerramientaUsuarioController(req, res) {
     herramientas.map((herramienta, index) => {
       db.run(
         InsertUsoHerramienta,
-        [herramienta.id_herramienta, id_alumno, fecha, hora],
+        [herramienta.id_herramienta, null, id_alumno, fecha, hora],
         (err, rows) => {
           if (err) {
             console.log(err);
@@ -56,7 +55,7 @@ export async function cargarHerramientaUsuarioController(req, res) {
           } else {
             db.run(
               InsertRetiroHerramienta,
-              [herramienta.id_herramienta, id_alumno, fecha, hora],
+              [herramienta.id_herramienta, null, id_alumno, fecha, hora],
               (err, rows) => {
                 if (err) {
                   return;
